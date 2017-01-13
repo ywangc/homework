@@ -1,4 +1,4 @@
-## Remark
+## Read me
 
     2015-2016 first semester
     course : object-oriented programming
