@@ -1,5 +1,4 @@
 ## Read me
-
     2015-2016 first semester
     Course : object-oriented programming
     Teacher : Yang Guang
