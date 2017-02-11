@@ -38,6 +38,8 @@ BEGIN_MESSAGE_MAP(CImageDisplayerView, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CImageDisplayerView::OnFilePrintPreview)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_COMMAND(ID_BUTTON_Open, &CImageDisplayerView::OnButtonOpen)
+	ON_UPDATE_COMMAND_UI(ID_BUTTON_Open, &CImageDisplayerView::OnUpdateButtonOpen)
 END_MESSAGE_MAP()
 
 // CImageDisplayerView construction/destruction
@@ -62,7 +64,7 @@ BOOL CImageDisplayerView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CImageDisplayerView drawing
 
-void CImageDisplayerView::OnDraw(CDC* /*pDC*/)
+void CImageDisplayerView::OnDraw(CDC* pDC)
 {
 	CImageDisplayerDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -70,6 +72,10 @@ void CImageDisplayerView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: add draw code for native data here
+	if(!image.IsNull())
+	{
+		image.Draw(pDC->GetSafeHdc(), 0, 0);
+	}
 }
 
 
@@ -135,3 +141,25 @@ CImageDisplayerDoc* CImageDisplayerView::GetDocument() const // non-debug versio
 
 
 // CImageDisplayerView message handlers
+
+
+void CImageDisplayerView::OnButtonOpen()
+{
+	// TODO: Add your command handler code here
+	CFileDialog dlg(TRUE, _T(".bmp"), _T("*.bmp"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, _T("位图文件（*.bmp）|*.bmp|JPGE文件（*.jpg)|*.jpg||"));
+	if(dlg.DoModal() == IDOK)
+	{
+		if(!image.IsNull())
+		{
+			image.Destroy();
+		}
+		image.Load(dlg.GetPathName());
+		Invalidate();
+	}
+}
+
+
+void CImageDisplayerView::OnUpdateButtonOpen(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+}
