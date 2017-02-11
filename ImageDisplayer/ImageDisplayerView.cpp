@@ -13,6 +13,7 @@
 //
 
 #include "stdafx.h"
+#include "atlimage.h"
 // SHARED_HANDLERS can be defined in an ATL project implementing preview, thumbnail
 // and search filter handlers and allows sharing of document code with that project.
 #ifndef SHARED_HANDLERS
@@ -70,11 +71,15 @@ void CImageDisplayerView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
+	CRect rt;
+	GetClientRect(&rt);
 
 	// TODO: add draw code for native data here
 	if(!image.IsNull())
 	{
-		image.Draw(pDC->GetSafeHdc(), 0, 0);
+		//image.Draw(pDC->GetSafeHdc(), CPoint(100, 0));
+		image.Draw(this->GetDC()->m_hDC,CPoint((rt.Width()  - image.GetWidth())/ 2,
+			(rt.Height() - image.GetHeight()) / 2));
 	}
 }
 
