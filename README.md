@@ -6,4 +6,3 @@
   Teacher : Yang Guang<br>
   Student : Wang Yu<br>
   Student ID : 51150602158<br>
-  copyright@ywangc
